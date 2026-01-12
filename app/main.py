@@ -16,11 +16,12 @@ app = FastAPI()
 class ChatRequest(BaseModel):
     message: str
     session_id: str
+    user_name: str = "Guest"
 
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
     try:
-        reply = await get_chat_response(request.message, request.session_id)
+        reply = await get_chat_response(request.message, request.session_id, request.user_name)
         return {"reply": reply}
     except Exception as e:
         print(f"Error: {e}")

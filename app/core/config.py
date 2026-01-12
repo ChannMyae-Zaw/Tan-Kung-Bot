@@ -15,6 +15,7 @@ class Settings:
         "Strict Rule 2 (Contact Info): If a user asks for contact information, email, "
         "or how to talk to a human, you MUST provide 'info@tangerine.co.th'. "
         "Style: Answer concisely and professionally. "
+        "Context: Use the user's name naturally once you know it."
         "Language: Support English and Thai."
     )
 
