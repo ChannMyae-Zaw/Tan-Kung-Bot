@@ -133,6 +133,41 @@ input:disabled {
     margin-bottom: 8px;
 }
 
+.name-input-group {
+    display: flex;
+    flex-direction: column; /* Stack them for a cleaner look */
+    gap: 10px;
+}
+
+#userNameInput {
+    /* Ensures the sidebar input looks consistent with the main chat input */
+    flex: none; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#saveNameBtn {
+    background: var(--tg-orange);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 24px; /* Matches the 'Send' button pill shape */
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    transition: background 0.3s ease;
+    width: 100%; /* Makes it full width for better alignment */
+}
+
+#saveNameBtn:hover {
+    background: var(--tg-orange-dark);
+}
+
+#saveNameBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 #timerDisplay {
     font-size: 32px;
     font-weight: 700;
@@ -147,14 +182,6 @@ input:disabled {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-}
-
-.contact-box {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid var(--tg-grey);
-    font-size: 13px;
-    color: var(--text-dark);
 }
 
 /* KEEP YOUR EXISTING CHATBOX, BUBBLE, AND INPUT STYLES BELOW */
