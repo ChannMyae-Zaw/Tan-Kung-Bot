@@ -14,30 +14,27 @@ let timerInterval;
 // 2. DEFINE UNLOCKCHAT FIRST (To ensure it's registered)
 window.unlockChat = function() {
     const nameInput = document.getElementById('userNameInput');
+    const saveBtn = document.getElementById('saveNameBtn');
     const userName = nameInput.value.trim();
 
     if (!userName) {
-        alert("Please enter your name in the sidebar!");
+        nameInput.style.borderColor = "red"; // Visual cue if empty
         return;
     }
 
-    // 1. Hide the Lock Overlay
-    const overlay = document.getElementById('chatLockOverlay');
-    if (overlay) overlay.classList.add('hidden');
-
-    // 2. Enable Chat Inputs
-    const userInput = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-    
-    userInput.disabled = false;
-    sendBtn.disabled = false;
-    userInput.placeholder = "Ask about Gmail, Drive...";
-
-    // 3. Lock the Sidebar Name (Optional, prevents changing name mid-chat)
+    // UI Cleanup
+    document.getElementById('chatLockOverlay').classList.add('hidden');
     nameInput.disabled = true;
-    document.getElementById('saveNameBtn').style.display = 'none';
+    saveBtn.disabled = true;
+    saveBtn.innerText = "Saved";
+    saveBtn.style.opacity = "0.6";
 
-    // 4. Start Timer and Greeting
+    // Enable Chat
+    document.getElementById('userInput').disabled = false;
+    document.getElementById('userInput').placeholder = "Ask Tan-kung...";
+    // Select the Send button in the input-area
+    document.querySelector('.input-area button').disabled = false;
+
     startTimer();
     addMessageToUI('bot', `Hello **${userName}**! I am Tan-kung. Before we proceed, could you please tell me your **company name**?`);
 };
