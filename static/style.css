@@ -1,64 +1,149 @@
 :root {
-    --google-blue: #1a73e8;
-    --google-grey: #f1f3f4;
+    --tg-orange: #ff7a00;
+    --tg-orange-dark: #e66b00;
+    --tg-orange-light: #fff1e6;
+    --tg-grey: #f7f2ee;
     --text-dark: #3c4043;
     --white: #ffffff;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #fffaf5;
     margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 1. Top Navigation Styling */
+.top-nav {
+    background: var(--white);
+    padding: 10px 40px;
+    border-bottom: 1px solid #ffd1b3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+.main-logo { height: 35px; width: auto; }
+.header-tagline { color: var(--tg-orange); font-weight: 600; }
+
+/* 2. Main 2-Column Layout */
+.main-content {
+    display: flex;
+    flex: 1;
+    padding: 20px 40px;
+    gap: 30px;
+    overflow: hidden; /* Keeps the whole page from scrolling, only the chatbox will */
+}
+
+/* Chat Column (Left) */
+.chat-column {
+    flex: 2; /* Takes up more space */
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
 .chat-container {
     width: 100%;
-    max-width: 500px;
-    height: 600px;
+    max-width: 800px; /* Wider for the new layout */
     background: var(--white);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .header {
     background: var(--white);
     padding: 16px;
-    border-bottom: 1px solid #dadce0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    border-bottom: 1px solid #ffd1b3;
+    
+    /* These lines fix the side-by-side alignment */
+    display: flex; 
+    flex-direction: row; /* Forces horizontal alignment */
+    align-items: center;  /* Centers them vertically against each other */
+    gap: 12px;           /* Adds space between the image and the text */
 }
 
-.header h2 { margin: 0; font-size: 18px; color: var(--text-dark); }
-.header img { width: 32px; height: 32px; }
+.header img.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover; /* Keeps image from stretching */
+}
 
-/* Chatbox */
-#chatbox {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
+.header h2 {
+    margin: 0; 
+    font-size: 18px;
+    color: var(--text-dark);
+}
+
+/* Sidebar Column (Right) */
+.sidebar {
+    flex: 1; /* Takes up less space */
+    background: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    height: fit-content;
 }
 
+.sidebar-widget label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+#timerDisplay {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--tg-orange);
+}
+
+.new-chat-btn {
+    background: var(--tg-orange);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.contact-box {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--tg-grey);
+    font-size: 13px;
+    color: var(--text-dark);
+}
+
+/* KEEP YOUR EXISTING CHATBOX, BUBBLE, AND INPUT STYLES BELOW */
+#chatbox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
 .message-row { display: flex; align-items: flex-end; gap: 8px; max-width: 85%; }
 .user-row { align-self: flex-end; flex-direction: row-reverse; }
 .bot-row { align-self: flex-start; }
-
 .avatar { width: 32px; height: 32px; border-radius: 50%; }
-
 .bubble { padding: 10px 16px; border-radius: 18px; font-size: 14px; line-height: 1.5; }
-.bot-bubble { background-color: var(--google-grey); color: var(--text-dark); border-bottom-left-radius: 4px; }
-.user-bubble { background-color: var(--google-blue); color: var(--white); border-bottom-right-radius: 4px; }
-
-/* Input */
+.bot-bubble { background-color: var(--tg-orange-light); color: var(--text-dark); border-bottom-left-radius: 4px; }
+.user-bubble { background-color: var(--tg-orange); color: var(--white); border-bottom-right-radius: 4px; }
 .input-area { padding: 16px; border-top: 1px solid #dadce0; display: flex; gap: 10px; }
-input { flex: 1; padding: 12px 20px; border: 1px solid #dadce0; border-radius: 24px; outline: none; }
-button { background: var(--google-blue); color: white; border: none; padding: 0 20px; border-radius: 24px; cursor: pointer; }
+input { flex: 1; padding: 12px 20px; border: 1px solid #ffd1b3; border-radius: 24px; outline: none; }
+button {
+    background: var(--tg-orange);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 24px;
+    cursor: pointer;
+}
+button:hover { background: var(--tg-orange-dark); }
