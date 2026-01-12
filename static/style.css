@@ -55,6 +55,36 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    position: relative;
+    overflow: hidden; 
+}
+
+#chatLockOverlay {
+    position: absolute;
+    top: 60px; /* Adjust to sit below the header */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: var(--tg-orange);
+}
+
+/* This class will be added by JS to hide the lock */
+.hidden {
+    display: none !important;
+}
+
+/* Style for disabled inputs to look 'locked' */
+input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    color: #999;
 }
 
 .header {

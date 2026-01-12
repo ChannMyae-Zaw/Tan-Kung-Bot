@@ -17,24 +17,21 @@
 
     <div class="main-content">
         <main class="chat-column">
-           <div class="chat-container">
+            <div class="chat-container" style="position: relative;"> 
                 <div class="header">
                     <img class="avatar" src="static/bot_avater.png" alt="Tan-kung">
                     <h2>Tan-kung Support</h2>
                 </div>
 
-                <div id="chatbox">
-                     <div class="message-row bot-row">
-                        <img class="avatar" src="static/bot_avater.png">
-                        <div class="bubble bot-bubble">
-                            Hello! I am Tan-kung. Before we proceed, could you please tell me your <strong>company name</strong>?
-                        </div>
-                    </div>
+                <div id="chatLockOverlay">
+                <p>Please enter your name in the sidebar to start.</p>
                 </div>
 
+                <div id="chatbox"></div>
+
                 <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Ask about Gmail, Drive..." onkeypress="if(event.key==='Enter') sendMessage()">
-                    <button onclick="sendMessage()">Send</button>
+                <input type="text" id="userInput" placeholder="Locked..." disabled onkeypress="if(event.key==='Enter') sendMessage()">
+                <button id="sendBtn" onclick="sendMessage()" disabled>Send</button>
                 </div>
             </div>
         </main>
@@ -43,6 +40,7 @@
             <div class="sidebar-widget">
                 <label>User Name</label>
                 <input type="text" id="userNameInput" placeholder="Enter your name">
+                <button id="saveNameBtn" onclick="unlockChat()" style="padding: 5px 10px; border-radius: 8px;">Save</button>       
             </div>
 
             <div class="sidebar-widget">
