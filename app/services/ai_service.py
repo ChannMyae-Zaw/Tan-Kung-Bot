@@ -7,7 +7,7 @@ client = genai.Client(api_key=settings.API_KEY)
 # Dictionary to store history lists
 sessions_db = {}
 
-async def get_chat_response(user_input: str, session_id: str, user_name: str):
+async def get_chat_response(user_input: str, session_id: str, user_name: str, company_name: str, phone: str, email: str):
     # 1. Get or create history
     is_new_session = session_id not in sessions_db
     if is_new_session:
@@ -17,7 +17,7 @@ async def get_chat_response(user_input: str, session_id: str, user_name: str):
     # This ensures Gemini knows who it is talking to from the start
     processed_input = user_input
     if is_new_session:
-        processed_input = f"[Context: The user's name is {user_name}] {user_input}"
+        processed_input = f"[You are talking to {user_name} from {company_name}. User Email: {email}, Phone: {phone}] {user_input}"
 
     # 3. Add User message to the local history
     sessions_db[session_id].append(

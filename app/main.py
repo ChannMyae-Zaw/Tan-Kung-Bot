@@ -17,11 +17,14 @@ class ChatRequest(BaseModel):
     message: str
     session_id: str
     user_name: str = "Guest"
+    company_name: str
+    phone: str
+    email: str
 
 @app.post("/chat")
 async def chat_endpoint(request: ChatRequest):
     try:
-        reply = await get_chat_response(request.message, request.session_id, request.user_name)
+        reply = await get_chat_response(request.message, request.session_id, request.user_name, request.company_name, request.phone, request.email)
         return {"reply": reply}
     except Exception as e:
         print(f"Error: {e}")

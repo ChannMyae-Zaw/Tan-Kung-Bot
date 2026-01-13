@@ -14,36 +14,54 @@ let timerInterval;
 // 2. DEFINE UNLOCKCHAT FIRST (To ensure it's registered)
 window.unlockChat = function() {
     const nameInput = document.getElementById('userNameInput');
+    const companyInput = document.getElementById('companyInput');
+    const phoneInput = document.getElementById('phoneInput');
+    const emailInput = document.getElementById('emailInput');
     const saveBtn = document.getElementById('saveNameBtn');
-    const userName = nameInput.value.trim();
 
-    if (!userName) {
-        nameInput.style.borderColor = "red"; // Visual cue if empty
+    const userName = nameInput.value.trim();
+    const companyName = companyInput.value.trim();
+
+    // Basic validation: Name and Company are usually mandatory
+    if (!userName || !companyName) {
+        if (!userName) nameInput.style.borderColor = "red";
+        if (!companyName) companyInput.style.borderColor = "red";
+        alert("Please fill in your Name and Company Name.");
         return;
     }
 
-    // UI Cleanup
+    // UI Cleanup: Lock all sidebar fields
     document.getElementById('chatLockOverlay').classList.add('hidden');
     nameInput.disabled = true;
+    companyInput.disabled = true;
+    phoneInput.disabled = true;
+    emailInput.disabled = true;
+    
     saveBtn.disabled = true;
     saveBtn.innerText = "Saved";
     saveBtn.style.opacity = "0.6";
 
-    // Enable Chat
+    // Enable Chat Input Area
     document.getElementById('userInput').disabled = false;
     document.getElementById('userInput').placeholder = "Ask Tan-kung...";
-    // Select the Send button in the input-area
     document.querySelector('.input-area button').disabled = false;
 
     startTimer();
-    addMessageToUI('bot', `Hello **${userName}**! I am Tan-kung. Before we proceed, could you please tell me your **company name**?`);
+    
+    // Personalized greeting using the new info
+    addMessageToUI('bot', `Hello **${userName}** from **${companyName}**! I am Tan-kung. How can I assist you with Google Workspace today?`);
 };
 
 // 3. DEFINE SENDMESSAGE
 window.sendMessage = async function() {
     const input = document.getElementById('userInput');
     const userMsg = input.value.trim();
+
+    // Collect values from the sidebar
     const userName = document.getElementById('userNameInput').value || "Guest";
+    const companyName = document.getElementById('companyInput').value || "Unknown";
+    const phone = document.getElementById('phoneInput').value || "N/A";
+    const email = document.getElementById('emailInput').value || "N/A";
 
     if (!userMsg || input.disabled) return;
 
@@ -59,15 +77,25 @@ window.sendMessage = async function() {
             body: JSON.stringify({ 
                 message: userMsg,
                 session_id: sessionID,
-                user_name: userName 
+                user_name: userName,
+                company_name: companyName, // Must match Python class exactly
+                phone: phone,              // Must match Python class exactly
+                email: email               // Must match Python class exactly
             })
         });
+
         const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Validation Error Details:", data.detail);
+            throw new Error("Validation Failed");
+        }
+
         hideTyping(typingId);
         addMessageToUI('bot', data.reply);
     } catch (error) {
         hideTyping(typingId);
-        addMessageToUI('bot', "I'm having trouble connecting.");
+        addMessageToUI('bot', "I'm having trouble connecting or validating your data.");
     }
 };
 
