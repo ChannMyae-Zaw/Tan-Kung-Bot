@@ -5,8 +5,10 @@ load_dotenv()
 
 class Settings:
     PROJECT_NAME = "Tan-kung Support Bot"
-    API_KEY = os.getenv("GEMINI_API_KEY")
-    MODEL_NAME = "gemini-2.5-flash-lite"
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+    GEMINI_MODEL_NAME = "gemini-2.5-flash-lite"
+    ACTIVE_LLM = "openai"
     
     SYSTEM_INSTRUCTION = (
         "Role: You are 'Tan-kung', a friendly Google Workspace Support Agent for Tangerine. "
